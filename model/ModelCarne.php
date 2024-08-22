@@ -1,12 +1,14 @@
 <?php
 class ModelCarne {
+    private $id;
     private $valor_total;
     private $qtd_parcelas;
     private $data_primeiro_vencimento;
     private $periodicidade;
     private $valor_entrada;
 
-    public function __construct($valor_total, $qtd_parcelas, $data_primeiro_vencimento, $periodicidade, $valor_entrada) {
+    public function __construct($id, $valor_total, $qtd_parcelas, $data_primeiro_vencimento, $periodicidade, $valor_entrada) {
+        $this->id = $id;
         $this->valor_total = $valor_total;
         $this->qtd_parcelas = $qtd_parcelas;
         $this->data_primeiro_vencimento = $data_primeiro_vencimento;
@@ -14,43 +16,27 @@ class ModelCarne {
         $this->valor_entrada = $valor_entrada;
     }
 
-    public function getValorTotal() {
-        return $this->valor_total;
-    }
+    public function getId() { return $this->id; }
 
-    public function setValorTotal($valorTotal) {
-        $this->valor_total = $valorTotal;
-    }
+    public function setId($id) { $this->id = $id; }
 
-    public function getQtd_parcelas() {
-        return $this->qtd_parcelas;
-    }
+    public function getValorTotal() { return $this->valor_total; }
 
-    public function setQtd_parcelas($qtd_parcelas) {
-        $this->qtd_parcelas = $qtd_parcelas;
-    }
+    public function setValorTotal($valorTotal) { $this->valor_total = $valorTotal; }
 
-    public function getDataPrimeiro_vencimento() {
-        return $this->data_primeiro_vencimento;
-    }
+    public function getQtd_parcelas() { return $this->qtd_parcelas; }
 
-    public function setDataPrimeiro_vencimento($data_primeiro_vencimento) {
-        $this->data_primeiro_vencimento = $data_primeiro_vencimento;
-    }
+    public function setQtd_parcelas($qtd_parcelas) { $this->qtd_parcelas = $qtd_parcelas; }
 
-    public function getPeriodicidate() {
-        return $this->periodicidade;
-    }
+    public function getDataPrimeiro_vencimento() { return $this->data_primeiro_vencimento; }
 
-    public function setPeriodicidade($periodicidade) {
-        $this->periodicidade = $periodicidade;
-    }
+    public function setDataPrimeiro_vencimento($data_primeiro_vencimento) { $this->data_primeiro_vencimento = $data_primeiro_vencimento; }
 
-    public function getValorEntrada() {
-        return $this->valor_entrada;
-    }
+    public function getPeriodicidate() { return $this->periodicidade; }
 
-    public function setValorEntrada($valorEntrada){
-        $this->valor_entrada = $valorEntrada;
-    }
+    public function setPeriodicidade($periodicidade) { $this->periodicidade = $periodicidade; }
+
+    public function getValorEntrada() { return $this->valor_entrada; }
+
+    public function setValorEntrada($valorEntrada){ $this->valor_entrada = $valorEntrada; }
 }
