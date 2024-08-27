@@ -1,9 +1,12 @@
 <?php
     require_once 'controller/ControllerCarne.php';
+    require_once 'model/ModelCarne.php';
     
     $action = $_GET['action'];
 
-    class Hendle {
+    Handle::handleRequest($action);
+
+    class Handle {
         public static function handleRequest($action) {
             switch ($action) {
                 case 'listar':
@@ -61,8 +64,9 @@
                 $valor_total = $data->valor_total; 
                 $qtd_parcelas = $data->qtd_parcelas;
                 $data_primeiro_vencimento = $data->data_primeiro_vencimento;
-                $periodicidade = $data->periodicodade;
+                $periodicidade = $data->periodicidade;
                 $valor_entrada = $data->valor_entrada;
+                
                 $carne = new ModelCarne(null, $valor_total, $qtd_parcelas, $data_primeiro_vencimento, $periodicidade, $valor_entrada);
 
                 $new_controller = new ControllerCarne();

@@ -1,7 +1,8 @@
 <?php
 include_once ("repository/RepositoryCarneInMemory.php");
+include_once ("repository/BaseRepository.php");
 //TODO: implementar controller carne
-class ControllerCarne implements BaseRepository {
+class ControllerCarne {
 
     public function find($id) {
         try {
@@ -25,7 +26,7 @@ class ControllerCarne implements BaseRepository {
         try {
             $new_carne = new RepositoryCarneInMemory();
             $new_carne->add($carne);
-            return true;
+            return $new_carne->getAll();
         } catch (PDOException $e) {
             return false;
         }
