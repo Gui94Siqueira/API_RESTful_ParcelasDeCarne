@@ -1,6 +1,8 @@
 <?php
     require_once 'controller/ControllerCarne.php';
     require_once 'model/ModelCarne.php';
+
+    header('Content-Type: application/json; charset=utf-8');
     
     $action = $_GET['action'];
 
@@ -38,8 +40,8 @@
         
         public static function listar() {
             $new_controller = new ControllerCarne();
-            $new_controller->getAll();
-            echo json_encode($new_controller);
+            $result = $new_controller->getAll();
+            echo json_encode(["success" => $result]);
         }
 
         public static function buscarPorId() {
@@ -85,7 +87,7 @@
                 $valor_total = $data->valor_total; 
                 $qtd_parcelas = $data->qtd_parcelas;
                 $data_primeiro_vencimento = $data->data_primeiro_vencimento;
-                $periodicidade = $data->periodicodade;
+                $periodicidade = $data->periodicidade;
                 $valor_entrada = $data->valor_entrada;
     
                 // Existindo um pedido!
@@ -96,11 +98,11 @@
                     $new_carne->setValorTotal($valor_total);
                     $new_carne->setQtd_parcelas($qtd_parcelas);
                     $new_carne->setDataPrimeiro_vencimento($data_primeiro_vencimento);
-                    $new_carne->etPeriodicidade($periodicidade);
-                    $new_carne->setData($valor_entrada);
+                    $new_carne->setPeriodicidade($periodicidade);
+                    $new_carne->setValorEntrada($valor_entrada);
     
-                    $new_carne = new ControllerCarne();
-                    $success = $new_carne->update($new_carne, $id);
+                    $controllerCarne = new ControllerCarne();
+                    $success = $controllerCarne->update($new_carne);
                     echo json_encode(['success' => $success]);
                 } else {
                     http_response_code(404);

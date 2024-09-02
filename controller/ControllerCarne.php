@@ -1,12 +1,11 @@
 <?php
-include_once ("repository/RepositoryCarneInMemory.php");
-include_once ("repository/BaseRepository.php");
+require_once "repository/RepositoryCarne.php";
 //TODO: implementar controller carne
 class ControllerCarne {
 
     public function find($id) {
         try {
-            $carne = new RepositoryCarneInMemory();
+            $carne = new RepositoryCarne();
             return $carne->find($id);
         } catch (PDOException $e) {
             return null;
@@ -15,7 +14,7 @@ class ControllerCarne {
 
     public function getAll() {
        try {
-            $carne = new RepositoryCarneInMemory();
+            $carne = new RepositoryCarne();
             return $carne->getAll();
        } catch (PDOException $e) {
             return [];
@@ -24,18 +23,17 @@ class ControllerCarne {
 
     public function add(ModelCarne $carne) {
         try {
-            $new_carne = new RepositoryCarneInMemory();
-            $new_carne->add($carne);
-            return $new_carne->getAll();
+            $new_carne = new RepositoryCarne();
+            return $new_carne->add($carne);
         } catch (PDOException $e) {
             return false;
         }
     }
 
-    public function update($id, ModelCarne $carne) {
+    public function update(ModelCarne $carne) {
         try {
-            $new_carne = new RepositoryCarneInMemory();
-            return $new_carne->update($id, $carne);
+            $new_carne = new RepositoryCarne();
+            return $new_carne->update($carne);
         } catch (PDOException $e) {
             return false;
         }
@@ -43,7 +41,7 @@ class ControllerCarne {
 
     public function delete($id) {
         try {
-            $new_carne = new RepositoryCarneInMemory();
+            $new_carne = new RepositoryCarne();
             return $new_carne->delete($id);
         } catch (PDOException $e) {
             return false;

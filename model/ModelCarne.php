@@ -1,5 +1,5 @@
 <?php
-class ModelCarne {
+class ModelCarne implements JsonSerializable {
     private $id;
     private $valor_total;
     private $qtd_parcelas;
@@ -39,4 +39,15 @@ class ModelCarne {
     public function getValorEntrada() { return $this->valor_entrada; }
 
     public function setValorEntrada($valorEntrada){ $this->valor_entrada = $valorEntrada; }
+
+    public function jsonSerialize(): array {
+        return [
+            'id' => $this->id,
+            'valor_total' => $this->valor_total,
+            'qtd_parcelas' => $this->qtd_parcelas,
+            'data_primeiro_vencimento' => $this->data_primeiro_vencimento,
+            'periodicidade' => $this->periodicidade,
+            'valor_entrada' => $this->valor_entrada
+        ];
+    }
 }
