@@ -40,14 +40,50 @@ class ModelCarne implements JsonSerializable {
 
     public function setValorEntrada($valorEntrada){ $this->valor_entrada = $valorEntrada; }
 
+    private function calcularParcelas() {
+        $parcelas = [];
+        $valor_restante = $this->valor_total - $this->valor_entrada;
+        $valor_parcela = $this->qtd_parcelas > 0 ? $valor_restante / $this->qtd_parcelas : 0;
+        $data_vencimento = new DateTime($this->data_primeiro_vencimento);
+
+        // Adiciona a entrada como primeira parcela, se existir
+        if ($this->valor_entrada > 0) {
+            $parcelas[] = [
+                'data_vencimento' => $data_vencimento->format('Y-m-d'),
+                'valor' => $this->valor_entrada,
+                'numero' => 1,
+                'entrada' => true
+            ];
+        }
+
+        // Adiciona as parcelas restantes
+        for ($i = 0; $i < $this->qtd_parcelas; $i++) {
+            // Define o incremento com base na periodicidade
+            if ($i > 0 || $this->valor_entrada > 0) {
+                if ($this->periodicidade === 'mensal') {
+                    $data_vencimento->modify('+1 month');
+                } elseif ($this->periodicidade === 'semanal') {
+                    $data_vencimento->modify('+1 week');
+                }
+            }
+
+            $parcelas[] = [
+                'data_vencimento' => $data_vencimento->format('Y-m-d'),
+                'valor' => $valor_parcela,
+                'numero' => count($parcelas) + 1,
+                'entrada' => false
+            ];
+        }
+
+        return $parcelas;
+    }
+
+
     public function jsonSerialize(): array {
         return [
-            'id' => $this->id,
-            'valor_total' => $this->valor_total,
-            'qtd_parcelas' => $this->qtd_parcelas,
-            'data_primeiro_vencimento' => $this->data_primeiro_vencimento,
-            'periodicidade' => $this->periodicidade,
-            'valor_entrada' => $this->valor_entrada
+            'total' => $this->valor_total,
+            'valor_entrada' => $this->valor_entrada,
+            'parcelas' => $this->calcularParcelas()
         ];
     }
 }
