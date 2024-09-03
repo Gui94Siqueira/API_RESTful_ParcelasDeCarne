@@ -7,5 +7,4 @@ interface BaseRepository {
     public function update(ModelCarne $carne);
     public function delete($id);
 }
-
 ?>
